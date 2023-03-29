@@ -31,7 +31,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_gateway"></a> [gateway](#input\_gateway) | n/a | `string` | `"192.168.3.1"` | no |
+| <a name="input_gateway"></a> [gateway](#input\_gateway) | n/a | `string` | `"192.168.1.1"` | no |
 | <a name="input_master_ips"></a> [master\_ips](#input\_master\_ips) | List of ip addresses for master nodes | `any` | n/a | yes |
 | <a name="input_networkrange"></a> [networkrange](#input\_networkrange) | n/a | `number` | `24` | no |
 | <a name="input_num_k3s_masters"></a> [num\_k3s\_masters](#input\_num\_k3s\_masters) | n/a | `number` | `1` | no |

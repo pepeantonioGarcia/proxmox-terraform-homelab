@@ -1,25 +1,14 @@
-variable "pm_user" {
-  description = "The username for the proxmox user"
-  type        = string
-  sensitive   = false
-  default     = "root@pam"
-
-}
-variable "pm_password" {
-  description = "The password for the proxmox user"
-  type        = string
-  sensitive   = true
-}
 
 variable "pm_tls_insecure" {
   description = "Set to true to ignore certificate errors"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "pm_host" {
   description = "The hostname or IP of the proxmox server"
   type        = string
+  default="192.168.1.2"
 }
 
 variable "pm_node_name" {
@@ -28,7 +17,9 @@ variable "pm_node_name" {
   default     = "pve"
 }
 
-variable "pvt_key" {}
+variable "pvt_key" {
+  default= "~/.ssh/id_rsa"
+}
 
 variable "num_k3s_masters" {
   default = 1
@@ -39,21 +30,36 @@ variable "num_k3s_masters_mem" {
 }
 
 variable "num_k3s_nodes" {
-  default = 2
+  default = 3
 }
 
 variable "num_k3s_nodes_mem" {
   default = "4096"
 }
 
-variable "tamplate_vm_name" {}
+variable "tamplate_vm_name" {
+  default= "ubuntu-template"
+}
 
 variable "master_ips" {
   description = "List of ip addresses for master nodes"
+  default=[
+  "192.168.1.11",
+  ]
 }
 
 variable "worker_ips" {
   description = "List of ip addresses for worker nodes"
+  default = [
+  "192.168.1.21",
+  "192.168.1.22",
+  "192.168.1.23"
+
+
+]
+}
+variable "disk" {
+  default = "nvme"
 }
 
 variable "networkrange" {
@@ -61,5 +67,5 @@ variable "networkrange" {
 }
 
 variable "gateway" {
-  default = "192.168.3.1"
+  default = "192.168.1.1"
 }

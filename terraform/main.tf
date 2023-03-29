@@ -7,14 +7,16 @@ resource "proxmox_vm_qemu" "proxmox_vm_master" {
   agent       = 1
   memory      = var.num_k3s_masters_mem
   cores       = 4
-
   ipconfig0 = "ip=${var.master_ips[count.index]}/${var.networkrange},gw=${var.gateway}"
-
+  disk {
+    storage = var.disk
+    type    = "scsi"
+    size    = "50G"
+  }
   lifecycle {
     ignore_changes = [
       ciuser,
       sshkeys,
-      disk,
       network
     ]
   }
@@ -30,9 +32,12 @@ resource "proxmox_vm_qemu" "proxmox_vm_workers" {
   agent       = 1
   memory      = var.num_k3s_nodes_mem
   cores       = 4
-
   ipconfig0 = "ip=${var.worker_ips[count.index]}/${var.networkrange},gw=${var.gateway}"
-
+  disk {
+    storage = var.disk
+    type    = "scsi"
+    size    = "50G"
+  }
   lifecycle {
     ignore_changes = [
       ciuser,
