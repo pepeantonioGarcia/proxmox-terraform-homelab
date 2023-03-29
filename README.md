@@ -139,13 +139,13 @@ after you run the Terrafom file, your file should look like this:
 
 ```bash
 [master]
-192.168.3.200 Ansible_ssh_private_key_file=~/.ssh/proxk3s
+192.168.1.200 Ansible_ssh_private_key_file=~/.ssh/proxk3s
 
 [node]
-192.168.3.202 Ansible_ssh_private_key_file=~/.ssh/proxk3s
-192.168.3.201 Ansible_ssh_private_key_file=~/.ssh/proxk3s
-192.168.3.198 Ansible_ssh_private_key_file=~/.ssh/proxk3s
-192.168.3.203 Ansible_ssh_private_key_file=~/.ssh/proxk3s
+192.168.1.202 Ansible_ssh_private_key_file=~/.ssh/proxk3s
+192.168.1.201 Ansible_ssh_private_key_file=~/.ssh/proxk3s
+192.168.1.198 Ansible_ssh_private_key_file=~/.ssh/proxk3s
+192.168.1.203 Ansible_ssh_private_key_file=~/.ssh/proxk3s
 
 [k3s_cluster:children]
 master
