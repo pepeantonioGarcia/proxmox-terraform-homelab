@@ -63,13 +63,6 @@ resource "proxmox_vm_qemu" "nfs-server" {
     type    = "scsi"
     size    = "25G"
   }
-  disk {
-    storage = var.disk
-    type    = "scsi"
-    size    = "500G"
-    format  = "ext4"
-    
-  }
   lifecycle {
     ignore_changes = [
       ciuser,
