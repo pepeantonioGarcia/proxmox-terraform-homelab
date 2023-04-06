@@ -31,6 +31,9 @@ you can browse to <https://cloud-images.ubuntu.com> and select any other version
 for Debian, got to <https://cloud.debian.org/images/cloud/>.
 it can also work for centos (R.I.P)
 
+Check NFS kubectl Provider 
+https://computingforgeeks.com/configure-nfs-as-kubernetes-persistent-volume-storage/
+
 ```bash
 wget https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
 ```
