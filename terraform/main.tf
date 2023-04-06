@@ -12,6 +12,7 @@ resource "proxmox_vm_qemu" "proxmox_vm_master" {
     storage = var.disk
     type    = "scsi"
     size    = "50G"
+    discard            = "on"
   }
   lifecycle {
     ignore_changes = [
@@ -37,6 +38,7 @@ resource "proxmox_vm_qemu" "proxmox_vm_workers" {
     storage = var.disk
     type    = "scsi"
     size    = "50G"
+    discard            = "on"
   }
   lifecycle {
     ignore_changes = [
@@ -50,6 +52,8 @@ resource "proxmox_vm_qemu" "proxmox_vm_workers" {
 }
 resource "proxmox_vm_qemu" "nfs-server" {
   count       = var.num_nfs
+  onboot      = true
+  startup     = "order=1" 
   name        = "nfs-server-${count.index}"
   target_node = var.pm_node_name
   clone       = var.tamplate_vm_name
@@ -59,10 +63,18 @@ resource "proxmox_vm_qemu" "nfs-server" {
   cores       = 4
   ipconfig0 = "ip=${var.nfs_ips[count.index]}/${var.networkrange},gw=${var.gateway}"
   disk {
+    discard = "on"
     storage = var.disk
     type    = "scsi"
     size    = "25G"
   }
+  disk {
+    discard            = "on"     
+    storage            = var.disk
+    type               = "scsi"
+    size               = "128G"
+  }
+
   lifecycle {
     ignore_changes = [
       ciuser,
@@ -87,6 +99,7 @@ resource "proxmox_vm_qemu" "proxy-server" {
     storage = var.disk
     type    = "scsi"
     size    = "25G"
+    discard = "on"
   }
   lifecycle {
     ignore_changes = [

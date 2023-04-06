@@ -66,6 +66,7 @@ variable "nfs_ips" {
   "192.168.1.3",
   ]
 }
+
 variable "proxy_ips" {
   description = "List of ip addresses for nfs nodes"
   default=[
@@ -89,6 +90,9 @@ variable "worker_ips" {
 }
 variable "disk" {
   default = "nvme"
+}
+variable "slow_disk" {
+  default = "local-lvm"
 }
 
 variable "networkrange" {
