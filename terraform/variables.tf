@@ -33,7 +33,7 @@ variable "num_proxy" {
 }
 
 variable "num_nfs_nodes_mem" {
-  default = "4096"
+  default = "1024"
 }
 
 variable "num_proxy_nodes_mem" {
@@ -53,7 +53,7 @@ variable "pm_nfs_name" {
   default = "nfs"
 }
 variable "num_k3s_nodes_mem" {
-  default = "4096"
+  default = "8192"
 }
 
 variable "tamplate_vm_name" {
