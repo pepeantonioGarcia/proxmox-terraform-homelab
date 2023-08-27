@@ -18,5 +18,5 @@ install:
     - git config --global user.name "${REMOTE_USER}"
     - git config --global user.email "${REMOTE_EMAIL}"
     - git remote set-url origin ${REMOTE_REPO}        
-    - git fetch
+    - git branch -m main
     - git push -f --set-upstream origin ${CI_COMMIT_REF_NAME}
