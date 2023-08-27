@@ -19,4 +19,4 @@ install:
     - git config --global user.email "${REMOTE_EMAIL}"
     - echo  ${REMOTE_REPO}            
     - git remote set-url origin git@github.com:pepeantonioGarcia/proxmox-terraform-homelab.git
-    - git push -u origin main
+    - git push -u origin origin/main
