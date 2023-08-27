@@ -1,13 +1,7 @@
-# .gitlab-ci.yml
-
-# The names and order of the pipeline stages
 stages:
-  - install-dependencies
-  - commit
-  - push
-
+  - git-sync
 install:
-  stage: install-dependencies
+  stage: git-sync
   script:
     - echo "install git"
     - apk update && apk upgrade && apk add git && apk add --no-cache openssh   
