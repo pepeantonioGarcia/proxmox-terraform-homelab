@@ -1,6 +1,6 @@
 resource "proxmox_vm_qemu" "proxmox_vm_master" {
   count       = var.num_k3s_masters
-  name        = "k3s-master-${count.index}"
+  name        = "k3s-master-${count.index}-${var.env}"
   target_node = var.pm_node_name
   clone       = var.tamplate_vm_name
   os_type     = "cloud-init"
@@ -8,11 +8,13 @@ resource "proxmox_vm_qemu" "proxmox_vm_master" {
   memory      = var.num_k3s_masters_mem
   cores       = 4
   ipconfig0 = "ip=${var.master_ips[count.index]}/${var.networkrange},gw=${var.gateway}"
+  ipconfig1 = "ip=${var.secondary_master_ips[count.index]}/${var.networkrange}"
   disk {
     storage = var.disk
     type    = "scsi"
     size    = "50G"
-    discard            = "on"
+    discard = "on"
+    cache   ="directsync"
   }
   lifecycle {
     ignore_changes = [
@@ -26,19 +28,21 @@ resource "proxmox_vm_qemu" "proxmox_vm_master" {
 
 resource "proxmox_vm_qemu" "proxmox_vm_workers" {
   count       = var.num_k3s_nodes
-  name        = "k3s-worker-${count.index}"
+  name        = "k3s-worker-${count.index}-${var.env}"
   target_node = var.pm_node_name
   clone       = var.tamplate_vm_name
   os_type     = "cloud-init"
   agent       = 1
   memory      = var.num_k3s_nodes_mem
-  cores       = 4
+  cores       = 6
   ipconfig0 = "ip=${var.worker_ips[count.index]}/${var.networkrange},gw=${var.gateway}"
+  ipconfig1 = "ip=${var.secondary_worker_ips[count.index]}/${var.networkrange}"
   disk {
     storage = var.disk
     type    = "scsi"
     size    = "50G"
-    discard            = "on"
+    discard = "on"
+    cache   ="directsync"
   }
   lifecycle {
     ignore_changes = [
@@ -54,7 +58,7 @@ resource "proxmox_vm_qemu" "nfs-server" {
   count       = var.num_nfs
   onboot      = true
   startup     = "order=1" 
-  name        = "nfs-server-${count.index}"
+  name        = "nfs-server-${count.index}-${var.env}"
   target_node = var.pm_node_name
   clone       = var.tamplate_vm_name
   os_type     = "cloud-init"
@@ -64,12 +68,14 @@ resource "proxmox_vm_qemu" "nfs-server" {
   ipconfig0 = "ip=${var.nfs_ips[count.index]}/${var.networkrange},gw=${var.gateway}"
   disk {
     discard = "on"
+    cache   ="directsync"     
     storage = var.disk
     type    = "scsi"
     size    = "25G"
   }
   disk {
-    discard            = "on"     
+    discard = "on"
+    cache   ="directsync"     
     storage            = var.disk
     type               = "scsi"
     size               = "128G"
@@ -87,7 +93,7 @@ resource "proxmox_vm_qemu" "nfs-server" {
 }
 resource "proxmox_vm_qemu" "proxy-server" {
   count       = var.num_proxy
-  name        = "proxy-server-${count.index}"
+  name        = "proxy-server-${count.index}-${var.env}"
   target_node = var.pm_node_name
   clone       = var.tamplate_vm_name
   os_type     = "cloud-init"
@@ -100,6 +106,7 @@ resource "proxmox_vm_qemu" "proxy-server" {
     type    = "scsi"
     size    = "25G"
     discard = "on"
+    cache   ="directsync"
   }
   lifecycle {
     ignore_changes = [

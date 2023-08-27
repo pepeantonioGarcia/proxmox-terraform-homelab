@@ -10,7 +10,7 @@ terraform {
 provider "proxmox" {
   pm_api_url      = "https://${var.pm_host}:8006/api2/json"
   pm_tls_insecure = var.pm_tls_insecure
-  pm_parallel     = 1
+  pm_parallel     = 4
   pm_timeout      = 600
   #  pm_debug = true
   pm_log_enable = true

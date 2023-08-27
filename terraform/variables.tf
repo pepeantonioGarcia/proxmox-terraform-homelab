@@ -1,4 +1,6 @@
-
+variable "env" {
+  default = "dev"
+}
 variable "pm_tls_insecure" {
   description = "Set to true to ignore certificate errors"
   type        = bool
@@ -26,10 +28,10 @@ variable "num_k3s_masters" {
 }
 
 variable "num_nfs" {
-  default = 1
+  default = 0
 }
 variable "num_proxy" {
-  default = 1
+  default = 0
 }
 
 variable "num_nfs_nodes_mem" {
@@ -53,7 +55,7 @@ variable "pm_nfs_name" {
   default = "nfs"
 }
 variable "num_k3s_nodes_mem" {
-  default = "8192"
+  default = "4096"
 }
 
 variable "tamplate_vm_name" {
@@ -76,20 +78,33 @@ variable "proxy_ips" {
 variable "master_ips" {
   description = "List of ip addresses for master nodes"
   default=[
-  "192.168.1.11",
+  "192.168.1.12"  
   ]
 }
-
+variable "secondary_master_ips" {
+  description = "List of ip addresses for master nodes"
+  default=[
+  "10.10.10.12",  
+  ]
+}
 variable "worker_ips" {
   description = "List of ip addresses for worker nodes"
   default = [
-  "192.168.1.21",
-  "192.168.1.22",
-  "192.168.1.23"
+  "192.168.1.24",
+  "192.168.1.25",
+  "192.168.1.26"
+]
+}
+variable "secondary_worker_ips" {
+  description = "List of ip addresses for worker nodes"
+  default = [
+  "10.10.10.24",
+  "10.10.10.25",
+  "10.10.10.26"
 ]
 }
 variable "disk" {
-  default = "nvme"
+  default = "local-lvm"
 }
 variable "slow_disk" {
   default = "local-lvm"
