@@ -1,0 +1,30 @@
+# .gitlab-ci.yml
+
+# The names and order of the pipeline stages
+stages:
+  - install-dependencies
+  - commit
+  - push
+
+install:
+  stage: install-dependencies
+  script:
+    - echo "install git"
+    - apk update && apk upgrade && apk add git && apk add --no-cache openssh   
+    - mkdir -p ~/.ssh/
+    - cp ${id_rsa} ~/.ssh/id_rsa    
+    - chmod  0600 ~/.ssh/id_rsa
+    - cat ~/.ssh/id_rsa
+    - ssh-keyscan github.com >> ~/.ssh/known_hosts
+    - git clone  git@github.com:pepeantonioGarcia/proxmox-terraform-homelab.git
+    - echo "TESTING VALUES FOR PRINT"    
+    - echo git@github.com:pepeantonioGarcia/proxmox-terraform-homelab.git
+    - echo ${REMOTE_REPO}
+    - git ls-remote ${REMOTE_REPO}    
+    - echo "TESTING VALUES FOR PRINT FINAL"
+    - git config --global user.name "${REMOTE_USER}"
+    - git config --global user.email "${REMOTE_EMAIL}"
+    - git remote set-url origin ${REMOTE_REPO}        
+    - git push --set-upstream origin ${CI_COMMIT_REF_NAME}
+
+
