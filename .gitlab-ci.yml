@@ -13,4 +13,4 @@ install:
     - git config --global user.email "${REMOTE_EMAIL}"    
     - git remote set-url origin ${REMOTE_REPO}  
     - echo ${CI_COMMIT_REF_NAME}
-    - git push -u origin origin/${CI_COMMIT_REF_NAME}
+    - git push -u ${CI_COMMIT_REF_NAME} origin/${CI_COMMIT_REF_NAME}
