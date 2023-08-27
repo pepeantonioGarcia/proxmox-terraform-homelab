@@ -13,11 +13,10 @@ install:
     - apk update && apk upgrade && apk add git && apk add --no-cache openssh   
     - mkdir -p ~/.ssh/
     - cp ${id_rsa} ~/.ssh/id_rsa    
-    - chmod  0600 ~/.ssh/id_rsa
-    - cat ~/.ssh/id_rsa
+    - chmod  0600 ~/.ssh/id_rsa    
     - ssh-keyscan github.com >> ~/.ssh/known_hosts      
     - git config --global user.name "${REMOTE_USER}"
     - git config --global user.email "${REMOTE_EMAIL}"
     - git remote set-url origin ${REMOTE_REPO}        
-    - git status
-    - git push --set-upstream origin ${CI_COMMIT_REF_NAME}
+    - git fetch
+    - git push -f --set-upstream origin ${CI_COMMIT_REF_NAME}
