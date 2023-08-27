@@ -10,7 +10,6 @@ install:
     - chmod  0600 ~/.ssh/id_rsa    
     - ssh-keyscan github.com >> ~/.ssh/known_hosts      
     - git config --global user.name "${REMOTE_USER}"
-    - git config --global user.email "${REMOTE_EMAIL}"
-    - echo  ${REMOTE_REPO}            
-    - git remote set-url origin git@github.com:pepeantonioGarcia/proxmox-terraform-homelab.git
+    - git config --global user.email "${REMOTE_EMAIL}"    
+    - git remote set-url origin ${REMOTE_REPO}            
     - git push -u origin origin/main
