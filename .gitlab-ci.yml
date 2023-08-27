@@ -17,6 +17,5 @@ install:
     - ssh-keyscan github.com >> ~/.ssh/known_hosts      
     - git config --global user.name "${REMOTE_USER}"
     - git config --global user.email "${REMOTE_EMAIL}"
-    - git remote set-url origin ${REMOTE_REPO}        
-    - git branch -m main
+    - git remote set-url origin ${REMOTE_REPO}            
     - git push -u origin main
