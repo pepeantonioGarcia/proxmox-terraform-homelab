@@ -4,12 +4,12 @@ install:
   stage: git-sync
   script:
     - echo "install git"
-    - apk update && apk upgrade && apk add git && apk add --no-cache openssh   
+    - apk update && apk upgrade && apk add git && apk add --no-cache openssh
     - mkdir -p ~/.ssh/
-    - cp ${id_rsa} ~/.ssh/id_rsa    
-    - chmod  0600 ~/.ssh/id_rsa    
-    - ssh-keyscan github.com >> ~/.ssh/known_hosts      
+    - cp ${id_rsa} ~/.ssh/id_rsa
+    - chmod  0600 ~/.ssh/id_rsa
+    - ssh-keyscan github.com >> ~/.ssh/known_hosts
     - git config --global user.name "${REMOTE_USER}"
     - git config --global user.email "${REMOTE_EMAIL}"    
     - git remote set-url origin ${REMOTE_REPO}            
-    - git push -u origin origin/main
+    - git push -u origin origin/${CI_COMMIT_REF_NAME}
