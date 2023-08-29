@@ -16,13 +16,12 @@ install:
     - chmod  0600 ~/.ssh/id_rsa    
     - ssh-keyscan github.com >> ~/.ssh/known_hosts      
     - git config --global user.name "${REMOTE_USER}"
-    - git config --global user.email "${REMOTE_EMAIL}"    
+    - git config --global user.email "${REMOTE_EMAIL}"
     - git clone ${REMOTE_REPO} ~/remote
-    - export PWD=$(pwd)
-    - rsync -r --exclude='.git/' ${PWD}/ ~/remote --delete
+    - export PWD=$(pwd)        
+    - rsync -r --exclude='.git/' ${PWD}/ ~/remote --delete    
     - cd ~/remote
-    - git status
+    - git checkout ${CI_COMMIT_REF_NAME}    
     - git add .
-    - git commit -m "Sync gitlab to Github by Jose Garcia"
+    - git commit -m "Sync gitlab to Github by Jose Garcia"    
     - git push
-  
