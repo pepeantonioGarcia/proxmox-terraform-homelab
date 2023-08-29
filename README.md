@@ -187,3 +187,4 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 Kubernets is realy fun to learn and there is so muche things that you can automate.
 
 Have fun :)
+Added Sync to Github and azure Devops repos.
