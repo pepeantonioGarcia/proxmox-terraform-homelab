@@ -1,0 +1,28 @@
+# .gitlab-ci.yml
+
+# The names and order of the pipeline stages
+stages:
+  - install-dependencies
+  - commit
+  - push
+
+install:
+  stage: install-dependencies
+  script:
+    - echo "install git"
+    - apk update && apk upgrade && apk add git && apk add rsync && apk add --no-cache openssh 
+    - mkdir -p ~/.ssh/
+    - cp ${id_rsa} ~/.ssh/id_rsa    
+    - chmod  0600 ~/.ssh/id_rsa    
+    - ssh-keyscan github.com >> ~/.ssh/known_hosts      
+    - git config --global user.name "${REMOTE_USER}"
+    - git config --global user.email "${REMOTE_EMAIL}"    
+    - git clone ${REMOTE_REPO} ~/remote
+    - export PWD=$(pwd)
+    - rsync -r --exclude='.git/' ${PWD} ~/remote
+    - cd ~/remote
+    - git status
+    - git add .
+    - git commit -m "Sync gitlab to Github by Jose Garcia"
+    - git push
+  
