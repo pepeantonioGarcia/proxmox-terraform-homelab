@@ -87,7 +87,7 @@ k8s-init:
   - changes:
     - ansible/**/*
   before_script:    
-    - apk update && apk upgrade && apk add ansible 
+    - apk update && apk upgrade && apk add ansible && apk add --no-cache openssh 
     - mkdir -p ~/.ssh/
     - cp ${id_rsa} ~/.ssh/id_rsa    
     - chmod  0600 ~/.ssh/id_rsa    
