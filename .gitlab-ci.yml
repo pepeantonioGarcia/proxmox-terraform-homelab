@@ -7,6 +7,9 @@ stages:
   - plan
   - apply
   # Terraform section
+  #anssible
+  - k8s-init
+  #ansible
 
 sync:  
   stage: syncGithub
@@ -78,3 +81,13 @@ apply:
   dependencies:
     - plan
   when: manual
+k8s-init:
+  stage: k8s-init
+  rules:
+  - changes:
+    - ansible/**/*
+  before_script:    
+    - apk update && apk upgrade && apk add ansible    
+    - cd ansible    
+  script:    
+    - ansible-playbook -i inventory/my-cluster/hosts.ini site.yml
