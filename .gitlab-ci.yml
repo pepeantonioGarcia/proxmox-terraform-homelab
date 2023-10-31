@@ -1,15 +1,15 @@
 # .gitlab-ci.yml
 # The names and order of the pipeline stages
 stages:
-  - install-dependencies
+  - syncGithub
   # Terraform section
   - validate
   - plan
   - apply
   # Terraform section
 
-install:  
-  stage: install-dependencies
+sync:  
+  stage: syncGithub
   script:
     - echo "install git"
     - apk update && apk upgrade && apk add git && apk add rsync && apk add --no-cache openssh 
@@ -42,6 +42,7 @@ validate:
 plan:
   stage: plan
   script:
+    - cd terraform
     - terraform plan -out "planfile"
   dependencies:
     - validate
@@ -51,6 +52,7 @@ plan:
 apply:
   stage: apply
   script:
+    - cd terraform
     - terraform apply -input=false "planfile"
   dependencies:
     - plan
