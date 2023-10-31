@@ -15,6 +15,7 @@ resource "proxmox_vm_qemu" "proxmox_vm_master" {
     size    = "50G"
     discard = "on"
     cache   ="directsync"
+    
   }
   lifecycle {
     ignore_changes = [
