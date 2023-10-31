@@ -88,13 +88,13 @@ k8s-init:
     - ansible/**/*
   before_script:    
     - apk update && apk upgrade && apk add ansible 
-    - ssh-keyscan 192.168.1.12 >> ~/.ssh/known_hosts    
-    - ssh-keyscan 192.168.1.24 >> ~/.ssh/known_hosts    
-    - ssh-keyscan 192.168.1.25 >> ~/.ssh/known_hosts    
-    - ssh-keyscan 192.168.1.26 >> ~/.ssh/known_hosts    
     - mkdir -p ~/.ssh/
     - cp ${id_rsa} ~/.ssh/id_rsa    
     - chmod  0600 ~/.ssh/id_rsa    
+    - ssh-keyscan 192.168.1.12 >> ~/.ssh/known_hosts    
+    - ssh-keyscan 192.168.1.24 >> ~/.ssh/known_hosts    
+    - ssh-keyscan 192.168.1.25 >> ~/.ssh/known_hosts    
+    - ssh-keyscan 192.168.1.26 >> ~/.ssh/known_hosts        
     - cd ansible    
   script:    
     - ansible-playbook -i inventory/my-cluster/hosts.ini site.yml
