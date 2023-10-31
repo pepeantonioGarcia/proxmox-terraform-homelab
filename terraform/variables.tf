@@ -10,7 +10,7 @@ variable "pm_tls_insecure" {
 variable "pm_host" {
   description = "The hostname or IP of the proxmox server"
   type        = string
-  default="192.168.1.2"
+  default="10.10.10.254"
 }
 
 variable "pm_node_name" {
@@ -62,19 +62,6 @@ variable "tamplate_vm_name" {
   default= "ubuntu-focal-cloudinit-template"
 }
 
-variable "nfs_ips" {
-  description = "List of ip addresses for nfs nodes"
-  default=[
-  "192.168.1.3",
-  ]
-}
-
-variable "proxy_ips" {
-  description = "List of ip addresses for nfs nodes"
-  default=[
-  "192.168.1.10",
-  ]
-}
 variable "master_ips" {
   description = "List of ip addresses for master nodes"
   default=[
@@ -104,10 +91,7 @@ variable "secondary_worker_ips" {
 ]
 }
 variable "disk" {
-  default = "local-lvm"
-}
-variable "slow_disk" {
-  default = "local-lvm"
+  default = "sata-local"
 }
 
 variable "networkrange" {

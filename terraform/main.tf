@@ -52,73 +52,7 @@ resource "proxmox_vm_qemu" "proxmox_vm_workers" {
       network
     ]
   }
-
 }
-resource "proxmox_vm_qemu" "nfs-server" {
-  count       = var.num_nfs
-  onboot      = true
-  startup     = "order=1" 
-  name        = "nfs-server-${count.index}-${var.env}"
-  target_node = var.pm_node_name
-  clone       = var.tamplate_vm_name
-  os_type     = "cloud-init"
-  agent       = 1
-  memory      = var.num_nfs_nodes_mem
-  cores       = 4
-  ipconfig0 = "ip=${var.nfs_ips[count.index]}/${var.networkrange},gw=${var.gateway}"
-  disk {
-    discard = "on"
-    cache   ="directsync"     
-    storage = var.disk
-    type    = "scsi"
-    size    = "25G"
-  }
-  disk {
-    discard = "on"
-    cache   ="directsync"     
-    storage            = var.disk
-    type               = "scsi"
-    size               = "128G"
-  }
-
-  lifecycle {
-    ignore_changes = [
-      ciuser,
-      sshkeys,
-      disk,
-      network
-    ]
-  }
-
-}
-resource "proxmox_vm_qemu" "proxy-server" {
-  count       = var.num_proxy
-  name        = "proxy-server-${count.index}-${var.env}"
-  target_node = var.pm_node_name
-  clone       = var.tamplate_vm_name
-  os_type     = "cloud-init"
-  agent       = 1
-  memory      = var.num_proxy_nodes_mem
-  cores       = 4
-  ipconfig0 = "ip=${var.proxy_ips[count.index]}/${var.networkrange},gw=${var.gateway}"
-  disk {
-    storage = var.disk
-    type    = "scsi"
-    size    = "25G"
-    discard = "on"
-    cache   ="directsync"
-  }
-  lifecycle {
-    ignore_changes = [
-      ciuser,
-      sshkeys,
-      disk,
-      network
-    ]
-  }
-
-}
-
 
 data "template_file" "k8s" {
   template = file("./templates/k8s.tpl")

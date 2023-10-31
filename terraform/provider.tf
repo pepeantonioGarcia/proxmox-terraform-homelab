@@ -5,6 +5,10 @@ terraform {
       version = "2.9.11"
     }
   }
+  backend "pg" {
+    #PGUSER,PGPASSWORD env variables required
+    conn_str = "postgres://@192.168.1.7:15432/tfproxmox?sslmode=disable"    
+  } 
 }
 
 provider "proxmox" {
