@@ -1,5 +1,5 @@
 resource "proxmox_vm_qemu" "proxmox_vm_master" {
-  count       = var.num_k3s_masters
+  count       = 1
   name        = "k3s-master-${count.index}-${var.env}"
   target_node = var.pm_node_name
   clone       = var.tamplate_vm_name
@@ -28,7 +28,7 @@ resource "proxmox_vm_qemu" "proxmox_vm_master" {
 }
 
 resource "proxmox_vm_qemu" "proxmox_vm_workers" {
-  count       = var.num_k3s_nodes
+  count       = 3
   name        = "k3s-worker-${count.index}-${var.env}"
   target_node = var.pm_node_name
   clone       = var.tamplate_vm_name
