@@ -72,5 +72,3 @@ resource "local_file" "var_file" {
   source   = "../inventory/sample/group_vars/all.yml"
   filename = "../inventory/my-cluster/group_vars/all.yml"
 }
-
-

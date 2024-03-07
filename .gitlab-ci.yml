@@ -1,5 +1,7 @@
 # .gitlab-ci.yml
 # The names and order of the pipeline stages
+image: 
+    name: alpine:3.9
 stages:
   - syncGithub
   # Terraform section
@@ -99,4 +101,3 @@ k8s-init:
   script:    
     - ansible-playbook -i inventory/my-cluster/hosts.ini site.yml
 
-    
