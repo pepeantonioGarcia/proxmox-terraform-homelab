@@ -98,3 +98,5 @@ k8s-init:
     - cd ansible    
   script:    
     - ansible-playbook -i inventory/my-cluster/hosts.ini site.yml
+
+    
